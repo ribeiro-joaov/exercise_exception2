@@ -1,19 +1,18 @@
 package model.entities;
 
-import model.exceptions.DomainException;
+import model.DomainException;
 
-public class Accounts {
+public class Account {
 
     private Integer accountNumber;
     private String accountHolder;
-    private Double currentBalance;
+    private Double balance;
     private Double withdrawLimit;
 
-
-    public Accounts(Integer accountNumber, String accountHolder, Double currentBalance, Double withdrawLimit) {
+    public Account(Integer accountNumber, String accountHolder, Double balance, Double withdrawLimit) {
         this.accountNumber = accountNumber;
         this.accountHolder = accountHolder;
-        this.currentBalance = currentBalance;
+        this.balance = balance;
         this.withdrawLimit = withdrawLimit;
     }
 
@@ -25,8 +24,8 @@ public class Accounts {
         return accountHolder;
     }
 
-    public Double getCurrentBalance() {
-        return currentBalance;
+    public Double getBalance() {
+        return balance;
     }
 
     public Double getWithdrawLimit() {
@@ -35,25 +34,15 @@ public class Accounts {
 
 
     public void deposit(double amount){
-        currentBalance += amount;
+        balance += amount;
     }
-
-    public void withdraw(){
-        double withdraw = 0;
-        currentBalance -= withdraw;
-    }
-
-
-    public void withdraw(double amount){
+    public void withDraw(double amount){
         if (amount > withdrawLimit){
             throw new DomainException("Withdraw error: The amount exceeds withdraw limit");
         }
-        if (amount > currentBalance){
+        if (amount > balance){
             throw new DomainException("Withdraw error: Not enough balance");
         }
-        currentBalance -= amount;
+        balance -= amount;
     }
-
-
-
 }
